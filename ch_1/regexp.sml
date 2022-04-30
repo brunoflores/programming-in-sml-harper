@@ -118,6 +118,24 @@ structure RegExp :> REGEXP = struct
     end
     handle LexicalError => raise SyntaxError "illegal input\n"
 
-  fun format _ = ""
+  fun format_exp Zero = [#"@"]
+    | format_exp One = [#"%"]
+    | format_exp (Char c) = [c]
+    | format_exp (Plus (r1, r2)) =
+      let val s1 = format_exp r1
+          val s2 = format_exp r2 in
+        [#"("] @ s1 @ [#"+"] @ s2 @ [#")"]
+      end
+    | format_exp (Times (r1, r2))=
+      let val s1 = format_exp r1
+          val s2 = format_exp r2 in
+        s1 @ [#"*"] @ s2
+      end
+    | format_exp (Star r) =
+      let val s = format_exp r in
+        [#"("] @ s @ [#")"] @ [#"*"]
+      end
+
+  fun format r = String.implode (format_exp r)
 
 end
