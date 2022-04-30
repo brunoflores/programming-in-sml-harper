@@ -71,3 +71,21 @@ Here, `n` is guaranteed to be non-zero:
 val recip : int -> int =
   fn 0 => 0 | n : int => 1 div n
 ```
+
+Case analysis on the values of a heterogeneous type is performed
+by application of a clausally-defined function. The notation
+
+```sml
+case exp
+  of pat_1 => exp_1
+   | ...
+   | pat_n => exp_n
+```
+
+is short for the application
+
+```sml
+(fn pat_1 => exp_1
+  | ...
+  | pat_n => exp_n) exp
+```
