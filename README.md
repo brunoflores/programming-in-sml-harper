@@ -12,3 +12,22 @@ $ wget http://smlnj.cs.uchicago.edu/dist/working/110.99.2/config.tgz
 $ tar -xzf config.tgz
 $ config/install.sh
 ```
+
+Highly recommended that you use rlwrap to be able to navigate the REPL:
+
+```
+$ apt-get install rlwrap
+```
+
+Then, whenever using the REPL, prefix `sml` as such:
+
+```
+$ rlwrap sml
+```
+
+## Chapter 1
+
+```
+$ cd ch_1
+$ sml ch_1.sml
+```
