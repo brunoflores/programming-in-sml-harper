@@ -57,7 +57,7 @@ val rec tokenize = fn nil => nil
 
 Repeat the function name with a `fun`:
 
-```
+```sml
 fun tokenize nil = nil
     | tokenize (#"+" :: cs) = (PlusSign :: tokenize cs)
     | tokenize (#"." :: cs) = (TimesSign :: tokenize cs)
