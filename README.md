@@ -63,3 +63,11 @@ fun tokenize nil = nil
     | tokenize (#"." :: cs) = (TimesSign :: tokenize cs)
     | tokenize _ = nil
 ```
+
+Important: clauses are considered in the order written.
+Here, `n` is guaranteed to be non-zero:
+
+```sml
+val recip : int -> int =
+  fn 0 => 0 | n : int => 1 div n
+```
