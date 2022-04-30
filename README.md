@@ -89,3 +89,26 @@ is short for the application
   | ...
   | pat_n => exp_n) exp
 ```
+
+## Self-Reference, Recursion and Iteration
+
+A recursive process:
+
+```sml
+val rec factorial : int -> int =
+  fn 0 => 1 | n : int => n * factorial (n-1)
+```
+
+```sml
+fun factorial 0 = 1
+  | factorial (n : int) = n * factorial (n-1)
+```
+
+An iterative process (less space required):
+
+```sml
+fun helper (0, r : int) = r
+  | helper (n : int, r : int) = helper (n-1, n*r)
+
+fun factorial (n : int) = helper (n, 1)
+```
