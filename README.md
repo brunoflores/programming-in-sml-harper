@@ -31,3 +31,9 @@ $ rlwrap sml
 $ cd ch_1
 $ sml ch_1.sml
 ```
+
+## Counter
+
+```
+$ sml counter.sml
+```
