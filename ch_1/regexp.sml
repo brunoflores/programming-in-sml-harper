@@ -157,9 +157,18 @@ functor Matcher (structure RegExp : REGEXP) :> MATCHER = struct
     | match_is (r as Star r1) cs k =
       (k cs) orelse match_is r1 cs (fn cs' => match_is r cs' k)
 
+  (* The matcher is generalised to one that checks whether some initial
+  *  segment of a string matches a given regular expression, then
+  *  passes the remaining final segment to a continuation [k], a function
+  *  that determines what to do after the initial segment has been
+  *  successfully matched.
+  *
+  *  An initial continuation checks whether the final segment is empty.
+  *)
   fun accepts regexp string =
-    match_is regexp (String.explode string)
-    (fn nil => true | _ => false)
+    let val initial_k = (fn nil => true | _ => false) in
+      match_is regexp (String.explode string) initial_k
+    end
 
 end
 
