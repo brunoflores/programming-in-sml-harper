@@ -61,5 +61,5 @@ Repeat the function name with a `fun`:
 fun tokenize nil = nil
     | tokenize (#"+" :: cs) = (PlusSign :: tokenize cs)
     | tokenize (#"." :: cs) = (TimesSign :: tokenize cs)
-    | _ => nil
+    | tokenize _ = nil
 ```
