@@ -7,7 +7,7 @@ https://www.smlnj.org/dist/working/110.99.2/index.html.
 
 Hints:
 
-```
+```bash
 $ wget http://smlnj.cs.uchicago.edu/dist/working/110.99.2/config.tgz
 $ tar -xzf config.tgz
 $ config/install.sh
@@ -15,13 +15,13 @@ $ config/install.sh
 
 Highly recommended that you use rlwrap to be able to navigate the REPL:
 
-```
+```bash
 $ apt-get install rlwrap
 ```
 
 Then, whenever using the REPL, prefix `sml` as such:
 
-```
+```bash
 $ rlwrap sml
 ```
 
@@ -29,7 +29,7 @@ $ rlwrap sml
 
 Code I wrote while reading the first chapter.
 
-```
+```bash
 $ cd ch_1
 $ sml ch_1.sml
 ```
@@ -38,7 +38,7 @@ $ sml ch_1.sml
 
 Code for a very simple counter to compare with similar OCaml version.
 
-```
+```bash
 $ sml counter.sml
 ```
 
@@ -48,7 +48,7 @@ Two different ways of saying the same thing.
 
 Avoid repeating the function name with a `rec` value:
 
-```
+```sml
 val rec tokenize = fn nil => nil
                     | (#"+" :: cs) => (PlusSign :: tokenize cs)
                     | (#"." :: cs) => (TimesSign :: tokenize cs)
