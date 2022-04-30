@@ -27,7 +27,7 @@ signature MATCHER = sig
   (* Depends on a given implementation of regular expressions. *)
   structure RegExp : REGEXP
 
-  val match : RegExp.regexp -> string -> bool
+  val accepts : RegExp.regexp -> string -> bool
 
 end
 
@@ -73,7 +73,7 @@ structure RegExp :> REGEXP = struct
   fun parse_exp ts =
     let val (r, ts') = parse_term ts in
       case ts' of (PlusSign :: ts'') =>
-          let val (r', ts''') = parse_exp ts' in
+          let val (r', ts''') = parse_exp ts'' in
             (Plus (r, r'), ts''')
           end
         | _ => (r, ts')
@@ -139,3 +139,28 @@ structure RegExp :> REGEXP = struct
   fun format r = String.implode (format_exp r)
 
 end
+
+functor Matcher (structure RegExp : REGEXP) :> MATCHER = struct
+
+  structure RegExp = RegExp
+
+  open RegExp
+
+  fun match_is Zero _ _ = false
+    | match_is One cs k = k cs
+    | match_is (Char c) nil _ = false
+    | match_is (Char c) (c' :: cs) k = (c = c') andalso (k cs)
+    | match_is (Plus (r1, r2)) cs k =
+      (match_is r1 cs k) orelse (match_is r2 cs k)
+    | match_is (Times (r1, r2)) cs k =
+      match_is r1 cs (fn cs' => match_is r2 cs' k)
+    | match_is (r as Star r1) cs k =
+      (k cs) orelse match_is r1 cs (fn cs' => match_is r cs' k)
+
+  fun accepts regexp string =
+    match_is regexp (String.explode string)
+    (fn nil => true | _ => false)
+
+end
+
+structure Matcher = Matcher (structure RegExp = RegExp)
