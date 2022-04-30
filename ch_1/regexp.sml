@@ -95,17 +95,17 @@ structure RegExp :> REGEXP = struct
         | _ => (r, ts')
     end
 
-  and parse_atom nil = raise SyntaxError ("factor expected\n")
+  and parse_atom nil = raise SyntaxError ("factor expected")
          | parse_atom (AtSign :: ts) = (Zero, ts)
          | parse_atom (Percent :: ts) = (One, ts)
          | parse_atom ((Literal c) :: ts) = (Char c, ts)
          | parse_atom (LParen :: ts) = (
            let val (r, ts') = parse_exp ts in
-             case ts' of nil => raise SyntaxError ("right-parenthesis expected\n")
+             case ts' of nil => raise SyntaxError ("right-parenthesis expected")
                 | (RParen :: ts'') => (r, ts'')
-                | _ => raise SyntaxError ("right-parenthesis expected\n")
+                | _ => raise SyntaxError ("right-parenthesis expected")
            end)
-         | parse_atom _ = raise SyntaxError ("not an atom\n")
+         | parse_atom _ = raise SyntaxError ("not an atom")
 
   (* The parser takes a string, "explodes" is into a list of characters,
   *  transforms the character list into a list of "tokens", and finally
@@ -114,9 +114,9 @@ structure RegExp :> REGEXP = struct
   fun parse s =
     let val (r, ts) = parse_exp (tokenize (String.explode s)) in
       case ts of nil => r
-         | _ => raise SyntaxError "unexpected input\n"
+         | _ => raise SyntaxError "unexpected input"
     end
-    handle LexicalError => raise SyntaxError "illegal input\n"
+    handle LexicalError => raise SyntaxError "illegal input"
 
   fun format_exp Zero = [#"@"]
     | format_exp One = [#"%"]
