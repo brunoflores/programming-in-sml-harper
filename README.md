@@ -27,6 +27,8 @@ $ rlwrap sml
 
 ## Chapter 1
 
+Code I wrote while reading the first chapter.
+
 ```
 $ cd ch_1
 $ sml ch_1.sml
@@ -34,6 +36,30 @@ $ sml ch_1.sml
 
 ## Counter
 
+Code for a very simple counter to compare with similar OCaml version.
+
 ```
 $ sml counter.sml
+```
+
+## Clausal Function Expressions
+
+Two different ways of saying the same thing.
+
+Avoid repeating the function name with a `rec` value:
+
+```
+val rec tokenize = fn nil => nil
+                    | (#"+" :: cs) => (PlusSign :: tokenize cs)
+                    | (#"." :: cs) => (TimesSign :: tokenize cs)
+                    | _ => nil
+```
+
+Repeat the function name with a `fun`:
+
+```
+fun tokenize nil = nil
+    | tokenize (#"+" :: cs) = (PlusSign :: tokenize cs)
+    | tokenize (#"." :: cs) = (TimesSign :: tokenize cs)
+    | _ => nil
 ```
