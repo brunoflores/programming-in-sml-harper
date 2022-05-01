@@ -30,9 +30,6 @@ signature DICT = sig
   val lookup : 'a dict * Key.t -> 'a option
 end
 
-signature STRING_DICT = DICT where type Key.t = string
-signature INT_DICT = DICT where type Key.t = int
-
 functor DictFun (structure K : ORDERED) :> DICT where type Key.t = K.t = struct
 
   structure Key : ORDERED = K
