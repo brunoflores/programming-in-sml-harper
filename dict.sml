@@ -46,11 +46,8 @@ structure StringDict :> STRING_DICT = struct
 
   fun lookup (Empty, _) = NONE
     | lookup (Node (dl, l, v, dr), k) =
-      if Key.lt (k, l) then
-        lookup (dl, k)
-      else if Key.lt (l, k) then
-        lookup (dr, k)
-      else 
-        SOME v
+      if Key.lt (k, l) then lookup (dl, k)
+      else if Key.lt (l, k) then lookup (dr, k)
+      else SOME v
 
 end
