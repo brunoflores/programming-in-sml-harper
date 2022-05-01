@@ -33,9 +33,9 @@ end
 signature STRING_DICT = DICT where type Key.t = string
 signature INT_DICT = DICT where type Key.t = int
 
-structure StringDict :> STRING_DICT = struct
+functor DictFun (structure K : ORDERED) :> DICT where type Key.t = K.t = struct
 
-  structure Key : ORDERED = LexString
+  structure Key : ORDERED = K
 
   datatype 'a dict = Empty
                    | Node of 'a dict * Key.t * 'a * 'a dict
@@ -51,3 +51,7 @@ structure StringDict :> STRING_DICT = struct
       else SOME v
 
 end
+
+structure LtIntDict = DictFun (structure K = LessInt)
+structure LexStringDict = DictFun (structure K = LexString)
+structure DivIntDict = DictFun (structure K = DivInt)
