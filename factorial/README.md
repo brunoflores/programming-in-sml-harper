@@ -12,3 +12,7 @@ Run the CLI:
 $ echo 5 | sml @SMLload=factorial
 120
 ```
+
+https://smlfamily.github.io/Basis/overview.html
+
+https://stackoverflow.com/a/5073129/12032632
