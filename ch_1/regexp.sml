@@ -28,6 +28,8 @@ signature MATCHER = sig
   (* Depends on a given implementation of regular expressions. *)
   structure RegExp : REGEXP
 
+  (* Only accepts regular expressions from the implementation provided at
+     construction time. *)
   val accepts : RegExp.regexp -> string -> bool
 end
 
