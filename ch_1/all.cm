@@ -1,6 +1,9 @@
 Library
   signature REGEXP
   signature MATCHER
+
+  structure RegExp
+  structure Matcher
 is
   regexp.sml
 
