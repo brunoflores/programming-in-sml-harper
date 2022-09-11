@@ -150,8 +150,8 @@ functor Matcher (structure RegExp : REGEXP) :> MATCHER = struct
   open RegExp
 
   fun match_is Zero _ _ = false
-    | match_is One cs k = k cs
     | match_is (Char c) nil _ = false
+    | match_is One cs k = k cs
     | match_is (Char c) (c' :: cs) k = (c = c') andalso (k cs)
     | match_is (Plus (r1, r2)) cs k =
       (match_is r1 cs k) orelse (match_is r2 cs k)
