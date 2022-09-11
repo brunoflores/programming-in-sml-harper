@@ -1,0 +1,7 @@
+#!/bin/bash
+
+heap=$(basename "$0")
+install=.
+smlbin=~/devel/smlnj-legacy/bin/
+
+exec $smlbin/.run-sml @SMLload=$install/"${heap}".amd64-linux "$@"
