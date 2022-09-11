@@ -46,8 +46,7 @@ structure RegExp :> REGEXP = struct
 
   exception LexicalError
 
-  fun tokenize
-      nil = nil
+  fun tokenize nil = nil
     | tokenize (#"+" :: cs) = (PlusSign :: tokenize cs)
     | tokenize (#"." :: cs) = (TimesSign :: tokenize cs)
     | tokenize (#"*" :: cs) = (Asterisk :: tokenize cs)
@@ -99,8 +98,7 @@ structure RegExp :> REGEXP = struct
         | _ => (r, ts')
     end
 
-  and parse_atom
-      nil = raise SyntaxError ("factor expected")
+  and parse_atom nil = raise SyntaxError ("factor expected")
     | parse_atom (AtSign :: ts) = (Zero, ts)
     | parse_atom (Percent :: ts) = (One, ts)
     | parse_atom ((Literal c) :: ts) = (Char c, ts)
@@ -124,8 +122,7 @@ structure RegExp :> REGEXP = struct
     end
     handle LexicalError => raise SyntaxError "illegal input"
 
-  fun format_exp
-      Zero = [#"@"]
+  fun format_exp Zero = [#"@"]
     | format_exp One = [#"%"]
     | format_exp (Char c) = [c]
     | format_exp (Plus (r1, r2)) =
@@ -152,8 +149,7 @@ functor Matcher (structure RegExp : REGEXP) :> MATCHER = struct
   structure RegExp = RegExp
   open RegExp
 
-  fun match_is
-      Zero _ _ = false
+  fun match_is Zero _ _ = false
     | match_is One cs k = k cs
     | match_is (Char c) nil _ = false
     | match_is (Char c) (c' :: cs) k = (c = c') andalso (k cs)
